@@ -1,0 +1,6 @@
+<div *ngIf="!wantRegister; else showItems">
+  <login (wantRegister)="onRegister($event)"></login>
+</div>
+<ng-template #showItems>
+ <register></register>
+</ng-template>

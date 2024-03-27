@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+  <h1>Enter with your account</h1>
+  <div>
+    <label for="email" >Email</label>
+    <input id="email" type="email" placeholder="Ex: pat@example.com" formControlName="email">
+    <span class="error-message" *ngIf="form.get('email')!.hasError('required') && form.get('email')!.touched">
+        Email is required
+      </span>
+    <span class="error-message" *ngIf="form.get('email')!.hasError('email') && form.get('email')!.touched">
+        Email is invalid
+      </span>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Password" formControlName="password">
+    <span class="error-message" *ngIf="form.get('password')!.hasError('required') && form.get('password')!.touched">
+        Password is required
+      </span>
+  </div>
+  <button class="login-form"  color="primary" [disabled]="!form.valid" (click)="login()"
+           *ngIf="!isLoggingIn" test-id="login-button">
+    LOGIN
+  </button>
+  <button class="login-form" color="primary" (click)="logout()"
+           *ngIf="!isLoggingIn" test-id="logout-button">
+    LOGOUT
+  </button>
+  <button class="login-form" color="primary" (click)="register()"
+          *ngIf="!isLoggingIn" test-id="register-button">REGISTER</button>
+</form>

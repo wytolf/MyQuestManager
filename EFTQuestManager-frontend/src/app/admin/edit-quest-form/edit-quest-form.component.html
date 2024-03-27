@@ -1,0 +1,38 @@
+<h1>Edit Quest: {{quest?.title}}</h1>
+<div *ngIf="quest">
+  <div class="mb-3">
+    <label for="trader" class="form-label">Trader: </label>
+    <input
+      id="trader"
+      type="text"
+      class="form-control"
+      [(ngModel)]="quest.trader"
+      placeholder="Quest Title"
+    >
+  </div>
+
+  <div class="mb-3">
+    <label for="map" class="form-label">Map: </label>
+    <input
+      id="map"
+      type="text"
+      class="form-control"
+      [(ngModel)]="quest.map"
+      placeholder="Quest Title"
+    >
+  </div>
+
+  <div class="mb-3">
+    <label for="link" class="form-label">Link: </label>
+    <input
+      id="link"
+      type="text"
+      class="form-control"
+      [(ngModel)]="quest.link"
+      placeholder="Quest Title"
+    >
+  </div>
+
+  <button class="button" type="button" (click)="save()">Speichern</button>
+  <button class="button" type="button" (click)="goBack()">BACK</button>
+</div>

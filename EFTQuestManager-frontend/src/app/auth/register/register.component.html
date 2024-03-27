@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+  <h1>Create a User</h1>
+  <div>
+    <label for="role">Role</label>
+    <input id="role" type="radio" name="role" value="user" formControlName="role" checked> User
+    <input type="radio" name="role" value="admin" formControlName="role"> Admin
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="Ex: pat@example.com" formControlName="email">
+    <span class="error-message" *ngIf="form.get('email')!.hasError('required') && form.get('email')!.touched">Email is required</span>
+    <span class="error-message" *ngIf="form.get('email')!.hasError('email') && form.get('email')!.touched">Email is invalid</span>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Password" formControlName="password">
+    <span class="error-message" *ngIf="form.get('password')!.hasError('required') && form.get('password')!.touched">Password is required</span>
+  </div>
+  <button class="login-form"  color="primary" [disabled]="!form.valid" (click)="register()"
+          *ngIf="!isLoggingIn" test-id="register-button">REGISTER
+  </button>
+</form>

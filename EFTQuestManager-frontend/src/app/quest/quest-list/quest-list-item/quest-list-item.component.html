@@ -1,0 +1,17 @@
+<li class="quest-list-element">
+  <div class="list-item">
+    <div class="form-check">
+      <label class="form-check-label">
+        <p>ID: {{ quest.id }}</p>
+        <p>Title: {{ quest.title }}</p>
+        <p>Trader: {{ quest.trader }}</p>
+        <p>Map: {{ quest.map }}</p>
+        <p>Link:<a href="{{ quest.link }}" target="_blank">{{ quest.link }} </a>
+      </label>
+    </div>
+    <div class="quest-actions">
+      <a class="btn-edit" *ngIf="isAdmin" [routerLink]="['..', 'quest', 'edit', quest.title]">EDIT QUEST</a>
+      <a class="btn-details" [routerLink]="['..', 'quest', quest.title]">SHOW DETAILS</a>
+    </div>
+  </div>
+</li>
