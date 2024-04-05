@@ -1,0 +1,28 @@
+name: Frontend
+
+on:
+  push:
+    paths:
+      - 'EFTQuestManager-frontend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: EFTQuestManager-frontend
+
+      - name: Build
+        run: npm run build --prod
+        working-directory: EFTQuestManager-frontend
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-build
+          path: EFTQuestManager-frontend/dist/
