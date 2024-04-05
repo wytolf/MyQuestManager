@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,11 +7,13 @@ import {Router} from "@angular/router";
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.css'
 })
-export class ManagerComponent {
+export class ManagerComponent implements OnInit {
 
-  constructor(authService: AuthService, router: Router) {
-    if (!authService.isLoggedIn()) {
-      router.navigate(['/login']);
+  constructor(private authService: AuthService, private router: Router) {  }
+
+  ngOnInit() {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
     }
   }
 }

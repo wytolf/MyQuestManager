@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./auth/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,21 +7,24 @@ import {Router} from "@angular/router";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'EFTQuestManager-frontend';
 
-  constructor(authService: AuthService, router: Router) {
-    if (authService.isLoggedIn()) {
-      console.log(authService.user);
-      const userRole = authService.user?.role;
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      console.log(this.authService.user);
+      const userRole = this.authService.user?.role;
       if (userRole === "admin") {
-        console.log("youre an admin");
+        console.log("you're an admin");
       } else {
-        console.log("youre not an admin, your role is: " + userRole);
-        router.navigate(['/manager']);
+        console.log("you're not an admin, your role is: " + userRole);
+        this.router.navigate(['/manager']);
       }
     } else {
-      router.navigate(['/login']);
+      this.router.navigate(['/login']);
     }
   }
 }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {QuestService} from "../quest.service";
 import {Quest} from "../../../shared/models/quest";
@@ -8,11 +8,15 @@ import {Quest} from "../../../shared/models/quest";
   templateUrl: './quest-details.component.html',
   styleUrl: './quest-details.component.css'
 })
-export class QuestDetailsComponent {
+export class QuestDetailsComponent implements OnInit{
   quest: Quest | undefined;
 
   constructor(private quests: QuestService, private route: ActivatedRoute) {
-    route.params.subscribe(val => {
+
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(val => {
       let id = val["id"];
       console.log(id);
       if (id) {
@@ -27,5 +31,5 @@ export class QuestDetailsComponent {
         });
       }
     });
-  }
+    }
 }
