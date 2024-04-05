@@ -31,3 +31,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ### testing
 - [ ] test navigation in constructor (app.component.ts)
 - [ ] test initialisation of quest (quest-details.component.ts)
+- 
