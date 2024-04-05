@@ -2,30 +2,48 @@ name: Frontend
 
 on:
   push:
+    branches: [main, dev/*]
     paths:
       - 'EFTQuestManager-frontend/**'
+  pull_request:
+      branches: [main, dev/*]
+      paths:
+          - 'EFTQuestManager-frontend/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+
+    strategy:
+      matrix:
+        node-version: [ 10.x ]
+
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: EFTQuestManager-frontend
-
-      - name: Build
-        run: npm run build --prod
-        working-directory: EFTQuestManager-frontend
-
-      - name: Test
-        run: npm test -- --configuration=ci
-
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          name: frontend-build
-          path: EFTQuestManager-frontend/dist/
+          node-version:  ${{ matrix.node-version }}
+
+      - run: npm ci
+      - run: npm run test:prod
+#      - name: Dependencies
+#        run: npm install
+#        working-directory: EFTQuestManager-frontend
+#
+#      - name: Build
+#        run: npm run build --prod
+#        working-directory: EFTQuestManager-frontend
+#
+#      - name: Test
+#        run: npm test -- --configuration=ci
+#
+#      - name: Archive artifacts
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: frontend-build
+#          path: EFTQuestManager-frontend/dist/
