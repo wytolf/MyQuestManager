@@ -17,9 +17,16 @@ jobs:
         run: npm install
         working-directory: EFTQuestManager-frontend
 
+      - name: Lint
+        run: npm run lint
+        working-directory: EFTQuestManager-frontend
+
       - name: Build
         run: npm run build --prod
         working-directory: EFTQuestManager-frontend
+
+      - name: Test
+        run: npm test -- --configuration=ci
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
