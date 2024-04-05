@@ -22,7 +22,7 @@ function main() {
         ],
     });
 
-    server.listen(4555, () => {
+    const instance = server.listen(4555, () => {
         logger.info('Server is listening');
     });
 
@@ -155,6 +155,12 @@ function main() {
             }
         }
     });
+
+    module.exports = instance;
 }
 
 main();
+// Start server
+
+
+

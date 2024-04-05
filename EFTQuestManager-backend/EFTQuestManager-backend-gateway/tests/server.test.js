@@ -1,21 +1,67 @@
 const axios = require('axios');
-const { server } = require('../server');
+const sinon = require('sinon');
+const server = require('../server');
+const request = require('supertest');
+const expect = require('chai').expect;
 
-describe('POST /user', () => {
-    it('should send the user to the microservice', async () => {
-        const user = { name: 'Test User', email: 'testuser@example.com' };
 
-        // Starten Sie den Server vor dem Test
-        server.listen(4555);
-
-        const response = await axios.post('http://localhost:4556/user', user);
-
-        expect(response.status).toBe(200);
-        expect(response.data).toBe('User erfolgreich an den Microservice gesendet');
-
-        // Beenden Sie den Server nach dem Test
-        server.close();
+const sandbox = sinon.createSandbox();
+describe('Gateway API Tests', () => {
+    afterEach(() => {
+      sandbox.restore();
     });
+    const userData = { email: 'test@mail.ch', role: 'user', activeQuests: [] };
+    const questData = { questId: 1, title: 'Questtitle', trader: 'trader', map: 'map', link: 'www.link.com' };
+
+    describe('register a user', () => {
+        it('should send the user to the microservice', async () => {
+            const axiosPutStub = sandbox.stub(axios, 'put');
+            axiosPutStub.resolves({ status: 200 });
+
+            const res = await request(server).put('/api/register').send(userData);
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    describe('get quests', () => {
+        it('should get the quests from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({ status: 200, data: [] });
+
+            const res = await request(server).get('/api/quests');
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    describe('post a quest', () => {
+        it('should send the quest to the microservice', async () => {
+            const axiosPostStub = sandbox.stub(axios, 'post');
+            axiosPostStub.resolves({ status: 200 });
+
+            const res = await request(server).post('/api/quests').send(questData);
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    describe('get a quest by id', () => {
+        it('should get the quest from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({ status: 200, data: [] });
+
+            const res = await request(server).get('/api/quests/1');
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    //ToDo: add tests for /api/user*
 });
+
+
+
+
 
 
