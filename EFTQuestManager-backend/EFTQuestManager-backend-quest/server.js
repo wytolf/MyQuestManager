@@ -34,7 +34,7 @@ function main() {
         ],
     });
 
-    server.listen(process.env.PORT, () => {
+    const instance = server.listen(process.env.PORT, () => {
         logger.info('Server is listening');
     });
 
@@ -102,6 +102,8 @@ function main() {
         const questsSnapshot = await getDocs(quests);
         return  questsSnapshot.docs.map(doc => doc.data());
     }
+
+    module.exports = instance;
 }
 
 

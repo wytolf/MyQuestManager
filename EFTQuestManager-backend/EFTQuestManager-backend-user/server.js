@@ -35,7 +35,7 @@ function main() {
         ],
     });
 
-    server.listen(process.env.PORT, () => {
+    const instance = server.listen(process.env.PORT, () => {
         logger.info('Server is listening');
     });
 
@@ -101,6 +101,8 @@ function main() {
         const userSnapshot = await getDocs(users);
         return  userSnapshot.docs.map(doc => doc.data());
     }
+
+    module.exports = instance;
 }
 
 

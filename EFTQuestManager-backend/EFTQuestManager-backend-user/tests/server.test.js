@@ -1,84 +1,47 @@
-// const axios = require('axios');
-// const { server } = require('../server'); // Pfad zu Ihrer Serverdatei
-
-// describe('POST /user', () => {
-//     it('should send the user to the microservice', async () => {
-//         const user = { name: 'Test User', email: 'testuser@example.com' };
-//
-//         // Starten Sie den Server vor dem Test
-//         server.listen(4555);
-//
-//         const response = await axios.post('http://localhost:4556/user', user);
-//
-//         expect(response.status).toBe(200);
-//         expect(response.data).toBe('User erfolgreich an den Microservice gesendet');
-//
-//         // Beenden Sie den Server nach dem Test
-//         server.close();
-//     });
-// });
-
-
+const axios = require('axios');
+const sinon = require('sinon');
+const server = require('../server');
 const request = require('supertest');
-const express = require('express');
-const app = express();
+const expect = require('chai').expect;
 
-// Mock Firebase-Funktionen
-jest.mock('firebase-admin', () => ({
-    initializeApp: jest.fn(),
-    getFirestore: jest.fn(),
-    setDoc: jest.fn(),
-}));
 
-// Mock Express-Endpunkt
-app.post('/api/user', require('./userController'));
+const sandbox = sinon.createSandbox();
+describe('Quest-Service API Tests', () => {
+    afterEach(() => {
+        sandbox.restore();
+    });
+    const userData = { email: 'test@mail.ch', role: 'user', activeQuests: [] };
 
-describe('POST /api/user', () => {
-    it('should create a new user', async () => {
-        const mockRequest = {
-            body: {
-                email: 'test@example.com',
-                username: 'testuser',
-                role: 'user',
-                quests: ['quest1', 'quest2'],
-            },
-        };
+    describe('put user', () => {
+        it('should send the user to the microservice', async () => {
+            const axiosPutStub = sandbox.stub(axios, 'put');
+            axiosPutStub.resolves({status: 200});
 
-        const mockResponse = {
-            status: jest.fn().mockReturnThis(),
-            send: jest.fn(),
-        };
+            const res = await request(server).put('/api/user').send(userData);
 
-        await request(app).post('/api/user').send(mockRequest.body);
-
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-        expect(mockResponse.send).toHaveBeenCalledWith(
-            'user with id test@example.com saved.'
-        );
+            expect(res.status).to.equal(200);
+        });
     });
 
-    it('should handle errors', async () => {
-        const mockRequest = {
-            body: {
-                email: 'test@example.com',
-                username: 'testuser',
-                role: 'user',
-            },
-        };
+    describe('get users', () => {
+        it('should get the users from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({status: 200, data: []});
 
-        const mockResponse = {
-            status: jest.fn().mockReturnThis(),
-            send: jest.fn(),
-        };
+            const res = await request(server).get('/api/user');
 
-        // Simulate an error during database save
-        jest.spyOn(app.locals.db, 'setDoc').mockRejectedValue(new Error('DB error'));
+            expect(res.status).to.equal(200);
+        });
+    });
 
-        await request(app).post('/api/user').send(mockRequest.body);
+    describe('get user by id', () => {
+        it('should get the user from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({status: 200, data: []});
 
-        expect(mockResponse.status).toHaveBeenCalledWith(500);
-        expect(mockResponse.send).toHaveBeenCalledWith(
-            'User Service: POST /user -> Internal Server Error'
-        );
+            const res = await request(server).get('/api/user/test@mail.ch');
+
+            expect(res.status).to.equal(200);
+        });
     });
 });

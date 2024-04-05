@@ -57,6 +57,39 @@ describe('Gateway API Tests', () => {
         });
     });
 
+    describe('get all users', () => {
+        it('should get all users from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({ status: 200, data: [] });
+
+            const res = await request(server).get('/api/user');
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    describe('post a user', () => {
+        it('should send the user to the microservice', async () => {
+            const axiosPostStub = sandbox.stub(axios, 'post');
+            axiosPostStub.resolves({ status: 200 });
+
+            const res = await request(server).post('/api/user').send(userData);
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
+    describe('get a user by email', () => {
+        it('should get the user from the microservice', async () => {
+            const axiosGetStub = sandbox.stub(axios, 'get');
+            axiosGetStub.resolves({status: 200, data: []});
+
+            const res = await request(server).get('/api/user/test@mail.ch');
+
+            expect(res.status).to.equal(200);
+        });
+    });
+
     //ToDo: add tests for /api/user*
 });
 
