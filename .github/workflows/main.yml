@@ -26,9 +26,9 @@ jobs:
         run: npm run build --prod
         working-directory: EFTQuestManager-frontend
 
-#      - name: Test
-#        run: npm test
-#        working-directory: EFTQuestManager-frontend
+      - name: Test
+        run: npm test
+        working-directory: EFTQuestManager-frontend
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
