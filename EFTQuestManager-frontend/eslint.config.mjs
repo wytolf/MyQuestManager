@@ -13,7 +13,8 @@ export default [
         "node_modules/",
         ".idea/",
         ".vscode/",
-        "karma.conf.js"
+        "karma.conf.js",
+        "dist/*"
       ],
     },
   ...tseslint.configs.recommended,
