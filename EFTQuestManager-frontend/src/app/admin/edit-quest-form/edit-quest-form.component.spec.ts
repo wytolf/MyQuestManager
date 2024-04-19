@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {EditQuestFormComponent} from './edit-quest-form.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {QuestService} from '../../quest/quest.service';
 import {of} from 'rxjs';
 import {FormsModule} from "@angular/forms";
@@ -9,7 +9,6 @@ import {RouterTestingModule} from "@angular/router/testing";
 describe('EditQuestFormComponent', () => {
   let component: EditQuestFormComponent;
   let fixture: ComponentFixture<EditQuestFormComponent>;
-  let questService: jasmine.SpyObj<QuestService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

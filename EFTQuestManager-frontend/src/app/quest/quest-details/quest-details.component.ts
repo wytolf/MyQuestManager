@@ -17,11 +17,11 @@ export class QuestDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(val => {
-      let id = val["id"];
+      const id = val["id"];
       console.log(id);
       if (id) {
         console.log(this.quests.getQuest(id));
-        this.quests.getActualQuests().subscribe((data: any) => {
+        this.quests.getActualQuests().subscribe((data: Quest[]) => {
           for (let i = 0; i < data.length; i++) {
             if (data[i].title === id) {
               this.quest = data[i];

@@ -10,7 +10,6 @@ describe('QuestListItemComponent', () => {
   let component: QuestListItemComponent;
   let fixture: ComponentFixture<QuestListItemComponent>;
   let authService: jasmine.SpyObj<AuthService>;
-  let router: Router;
 
   beforeEach(async () => {
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['isLoggedIn']);
@@ -25,7 +24,7 @@ describe('QuestListItemComponent', () => {
 
   beforeEach(() => {
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
-    router = TestBed.inject(Router);
+    TestBed.inject(Router);
     fixture = TestBed.createComponent(QuestListItemComponent);
     component = fixture.componentInstance;
     // Initialize quest input

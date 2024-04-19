@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Quest} from "../../shared/models/quest";
-import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -13,12 +12,12 @@ export class QuestService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient, router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getAllQuests() {
     console.log("getActualQuests() wurde aufgerufen");
-    let options = this.getStandardOptions();
+    const options = this.getStandardOptions();
 
     options.params = new HttpParams({
       fromObject: {
@@ -30,7 +29,7 @@ export class QuestService {
 
   getActualQuests() {
     console.log("getActualQuests() wurde aufgerufen");
-    let options = this.getStandardOptions();
+    const options = this.getStandardOptions();
 
     options.params = new HttpParams({
       fromObject: {
@@ -69,7 +68,7 @@ export class QuestService {
     return this.http.post<Quest>('http://127.0.0.1:4555/api/quests', quest, this.getStandardOptions()).subscribe();
   }
 
-  updateQuest(quest: Quest): Observable<any> {
+  updateQuest(quest: Quest) {
     console.log("updateQuest() wurde aufgerufen");
     return this.http.post<Quest>('http://127.0.0.1:4555/api/quests', quest, this.getStandardOptions());
 
@@ -82,11 +81,12 @@ export class QuestService {
     };
   }
 
-  private getStandardOptions(): any {
+  private getStandardOptions() {
     return {
-      headers: new HttpHeaders({
+      header: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
+      }),
+      params: new HttpParams()
     };
   }
 }

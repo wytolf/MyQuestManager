@@ -1,8 +1,8 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { of } from 'rxjs';
-import { AuthService } from './auth.service';
+import {TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {of} from 'rxjs';
+import {AuthService} from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;

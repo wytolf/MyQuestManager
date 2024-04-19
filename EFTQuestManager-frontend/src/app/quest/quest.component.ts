@@ -15,7 +15,7 @@ export class QuestComponent implements OnInit {
 
   ngOnInit(): void {
     this.questService.getActualQuests()
-      .subscribe((data: any) => {
+      .subscribe((data: Quest[]) => {
         this.quests = data;
       });
   }

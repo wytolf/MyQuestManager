@@ -10,8 +10,8 @@
     "serve:ssr:EFTQuestManager-frontend": "node dist/eftquest-manager-frontend/server/server.mjs",
     "build:prod": "ng build --prod",
     "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
-    "lint": "eslint .  --ignore-pattern \".angular/*\"",
-    "lint:fix": "eslint . --fix  --ignore-pattern \".angular/*\""
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "private": true,
   "dependencies": {

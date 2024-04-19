@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {catchError, from, Observable, Subscription, throwError} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../../shared/models/user";
 
 @Injectable({
@@ -46,7 +46,7 @@ export class AuthService {
         console.log("user will be created in backend");
         return this.http.post<User>('http://127.0.0.1:4555/api/register', params, this.getStandardOptions());
       }),
-      catchError((error: any) => {
+      catchError((error: string) => {
         console.log("Fehler beim Erstellen des Benutzers:", error);
         return throwError(() => error);
       })
@@ -110,11 +110,12 @@ export class AuthService {
     });
   }
 
-  private getStandardOptions(): any {
+  private getStandardOptions() {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      })
+      }),
+      params: new HttpParams()
     };
   }
 
@@ -138,11 +139,5 @@ type FirebaseError = {
   code: string;
   message: string
 };
-
-type Register = {
-  password: string;
-  role: string;
-  email: string;
-}
 
 

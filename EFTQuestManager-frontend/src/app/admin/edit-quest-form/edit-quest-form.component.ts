@@ -20,7 +20,7 @@ export class EditQuestFormComponent implements OnInit {
 
   getQuest(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.service.getActualQuests().subscribe((data: any) => {
+    this.service.getActualQuests().subscribe((data: Quest[]) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].title === id) {
           this.quest = data[i];

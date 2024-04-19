@@ -46,7 +46,7 @@ describe('RegisterComponent', () => {
       role: 'user',
       password: 'password123'
     };
-    const emptyPromise: Promise<any> = Promise.resolve();
+    const emptyPromise: Promise<void> = Promise.resolve();
     authService.register.and.returnValue(emptyPromise);
     const navigateSpy = spyOn(router, 'navigate');
 
