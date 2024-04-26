@@ -36,11 +36,11 @@ function main() {
             if (userResponse.status === 200) {
                 res.status(200).send({message: 'PUT /api/register -> User erfolgreich registriert'});
             } else {
-                res.status(500).send({message: 'PUT /api/register -> Fehler beim Registrieren des Users, user in firebase erstellt aber nicht im system, admin kontaktieren' });
+                res.status(500).send({message: 'PUT /api/register -> Fehler beim Registrieren des Users im System' });
             }
         } catch (error) {
             logger.error(error);
-            res.status(500).send({message: 'PUT /api/register -> Fehler beim Registrieren des Users'});
+            res.status(500).send({message: 'PUT /api/register -> unbekannter Fehler beim Registrieren des Users im System. error: ' + error});
         }
     });
 
@@ -160,7 +160,6 @@ function main() {
 }
 
 main();
-// Start server
 
 
 
