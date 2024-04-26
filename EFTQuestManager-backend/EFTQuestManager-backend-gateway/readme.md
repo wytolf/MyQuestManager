@@ -115,6 +115,7 @@ Content-Type: application/json
   }
 ```
 
+
 #### Response
 
 - **Success**: `Gateway Service: POST /quests/:id -> Quest erfolgreich gesendet`
