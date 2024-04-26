@@ -3,6 +3,7 @@ import { RegisterComponent } from './register.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import {User} from "../../../shared/models/user";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -44,9 +45,16 @@ describe('RegisterComponent', () => {
     const userData = {
       email: 'test@example.com',
       role: 'user',
-      password: 'password123'
+      password: 'password123',
     };
-    const emptyPromise: Promise<void> = Promise.resolve();
+
+    const mockUser = <User> {
+      ...userData,
+      activeQuests: []
+    }
+    const emptyPromise: Promise<User> = Promise.resolve(mockUser);
+
+
     authService.register.and.returnValue(emptyPromise);
     const navigateSpy = spyOn(router, 'navigate');
 

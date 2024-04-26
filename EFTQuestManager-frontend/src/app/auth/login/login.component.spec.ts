@@ -4,6 +4,8 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '../auth.service';
 import { of } from 'rxjs';
+import firebase from "firebase/compat";
+import UserCredential = firebase.auth.UserCredential;
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -35,7 +37,12 @@ describe('LoginComponent', () => {
   it('should call signIn method when login() is called', () => {
     const credentials = { email: 'test@example.com', password: 'password123' };
     //stubbing the methods of the authService
-    authService.signIn.and.returnValue(of(null)); //signIn method replaced with stub which returns an observable of null
+    const mockUserCredential = <UserCredential> {
+      user: {
+        email: credentials.email
+      }
+    }
+    authService.signIn.and.returnValue(of(mockUserCredential)); //signIn method replaced with stub which returns an observable of null
     authService.rememberUser.and.stub();
     authService.isLoggedIn.and.returnValue(false); //simulate user is not logged in
 

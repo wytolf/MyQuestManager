@@ -1,32 +1,34 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {catchError, from, Observable, Subscription, throwError} from 'rxjs';
+import {catchError, from, Observable, throwError} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../../shared/models/user";
+import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  fireUser: any = null;
+  fireUser?: firebase.User;
   user?: User;
-  authStateSubscription!: Subscription;
   isUserLoggedIn: boolean = false;
 
   constructor(
     private auth: AngularFireAuth,
     private http: HttpClient
   ) {
-    auth.user.subscribe((user: any | null) => {
+    auth.user?.subscribe((user: firebase.User | null) => {
       //handle auth state changes here. Note, that user will be null if there is no currently logged in user.
-      this.fireUser = user;
+      if (user !== null) {
+        this.fireUser = user;
+      }
       this.isUserLoggedIn = (user !== null);
       console.log(user);
     });
   }
 
-  signIn(params: SignIn): Observable<any> {
+  signIn(params: SignIn): Observable<firebase.auth.UserCredential> {
     console.log("try to sign in")
     return from(this.auth.signInWithEmailAndPassword(
       params.email, params.password
@@ -54,9 +56,9 @@ export class AuthService {
   }
 
   register(params: { email: string, password: string, role: string }) {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<User>((resolve, reject) => {
       this.auth.createUserWithEmailAndPassword(params.email, params.password)
-        .then(userCredential  => {
+        .then(()  => {
           const user: User = {
             email: params.email,
             role: params.role,
@@ -64,12 +66,14 @@ export class AuthService {
           };
 
           this.http.put<User>('http://127.0.0.1:4555/api/register', user, this.getStandardOptions())
-            .subscribe((response) => {
+            .subscribe({
+              next: (response) => {
                 resolve(response);
-              },error => {
+
+              }, error: (error) => {
                 reject(error);
               }
-            );
+            });
         })
         .catch(error => {
           reject(error);
@@ -91,7 +95,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    if (this.fireUser !== null) {
+    if (this.fireUser) {
       console.log("user is logged in, uid:" + this.fireUser.uid);
       return true;
     }
@@ -100,7 +104,10 @@ export class AuthService {
   }
 
   getLoggedInUserId(): string {
-    return this.fireUser.uid;
+    if (this.fireUser === null) {
+      return "no user logged in";
+    }
+    return this.fireUser!.uid;
   }
 
   rememberUser(email: string) {

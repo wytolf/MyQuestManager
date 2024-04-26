@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable, of} from "rxjs";
 import {Quest} from "../../shared/models/quest";
 import {environment} from "../../environments/environment";
 
@@ -72,13 +71,6 @@ export class QuestService {
     console.log("updateQuest() wurde aufgerufen");
     return this.http.post<Quest>('http://127.0.0.1:4555/api/quests', quest, this.getStandardOptions());
 
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
   }
 
   private getStandardOptions() {
