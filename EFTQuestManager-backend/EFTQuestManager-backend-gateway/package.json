@@ -7,8 +7,7 @@
     "start": "node .",
     "lint": "eslint .",
     "prettier": "prettier --write .",
-    "test": "mocha --exit",
-    "build": "gulp"
+    "test": "mocha --exit"
   },
   "author": "Matthias Brunner",
   "license": "ISC",
@@ -24,7 +23,6 @@
     "chai": "^4.4.1",
     "eslint": "^9.1.1",
     "globals": "^15.0.0",
-    "gulp": "^5.0.0",
     "mocha": "^10.4.0",
     "sinon": "^17.0.1",
     "supertest": "^6.3.4"
