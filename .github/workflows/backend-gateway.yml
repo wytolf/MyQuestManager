@@ -1,0 +1,41 @@
+name: Gateway
+
+on:
+  push:
+    branches: [main, dev/*]
+    paths:
+      - 'EFTQuestManager-backend/EFTQuestManager-backend-gateway/**'
+  pull_request:
+    branches: [main, dev/*]
+    paths:
+      - 'EFTQuestManager-backend/EFTQuestManager-backend-gateway/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Dependencies
+        run: npm install
+        working-directory: EFTQuestManager-backend/EFTQuestManager-backend-gateway
+
+      - name: Lint
+        run: npm run lint
+        working-directory: EFTQuestManager-backend/EFTQuestManager-backend-gateway
+
+      - name: Test
+        run: npm test
+        working-directory: EFTQuestManager-backend/EFTQuestManager-backend-gateway
+
+      - name: Build
+        run: npm run build
+        working-directory: EFTQuestManager-backend/EFTQuestManager-backend-gateway
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-build
+          path: EFTQuestManager-backend/EFTQuestManager-backend-gateway/dist/
