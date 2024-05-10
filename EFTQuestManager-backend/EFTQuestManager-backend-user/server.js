@@ -18,7 +18,7 @@ function main() {
     const server = express();
     server.use(express.json())
 
-    const app = initializeApp.initializeApp(firebaseConfig);
+    initializeApp.initializeApp(firebaseConfig);
     const db = getFirestore();
 
     const logger = winston.createLogger({
