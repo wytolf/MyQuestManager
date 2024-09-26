@@ -5,6 +5,7 @@
 ## Einführung und Ziele
 
 ### Aufgabenstellung
+Das Projekt QuestManager wurde im Rahmen meines HSLU-Informatikstudiums entwickelt. Es wurde im Modul WEBLAB initial erstellt und im Modul SWAT überarbeitet.
 Die Aufgabenstellung wurde zu Beginn des Projektes erstellt und ist in einem separaten Dokument festgehalten. Viele der Stories konnten nicht wie geplant umgesetzt werden. Details dazu sind in diesem Dokument und in der Reflexion aufgeführt.
 
 #### User Stories
