@@ -60,39 +60,39 @@ Das Quest Manager System besteht aus drei Schichten, bestehend aus Frontend, Bac
 Das Backend ist in einer Microservice Architektur mit Node.js umgesetzt. Es besteht aus vier Microservices. Eingehende Anfragen vom Frontend werden vom Gateway empfangen und an die entsprechenden Microservices weitergeleitet. Diese haben jeweils ihre eigenen Datenbanken.
 
 Das Frontend ist eine mit Angular umgesetzte Single-Page-Applikation.
-![img.png](img/LösungsstrategieV4.drawio.png)
+![img.png](EFTQuestManager-documentation/img/LösungsstrategieV4.drawio.png)
 
 ## Bausteinsicht
 ### Ebene 1
-![img.png](img/Ebene1.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Ebene1.drawio.png)
 ### Ebene 2
-![img.png](img/Ebene2v3.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Ebene2v3.drawio.png)
 ### Ebene 3
-![img.png](img/Ebene3_Gatewayv2.drawio.png)
-![img.png](img/Ebene3_Questv2.drawio.png)
-![img.png](img/Ebene3_User.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Ebene3_Gatewayv2.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Ebene3_Questv2.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Ebene3_User.drawio.png)
 
 ## Laufzeitsicht
 Um die Dokumentation kürzer zu halten, wurden nur die Abläufe mit höherer Komplexität dargestellt.
 
 **Register Prozess**
 Beim Login und Logout Prozess verwendet Frontend Auth Service direkt den Firebase Authentification Service.
-![img.png](img/Laufzeitschicht_registerv2.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Laufzeitschicht_registerv2.drawio.png)
 
 **Get Quests**
 
-![img.png](img/Laufzeitschicht_getQuests.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Laufzeitschicht_getQuests.drawio.png)
 
 Add/ Update Quest verläuft ähnlich.
 
 ## Verteilungssicht
 Die Microservices können einzeln Deployed werden funktionieren aber nur im Zusammenspiel gemäss der Lösungsstrategie. Die Endpoints der jeweiligen Services sind als **API-Dokumentation** in den jeweiligen Repositorys als markdown-File dokumentiert.
 
-![img.png](img/Distribution_einzelneServerv2.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Distribution_einzelneServerv2.drawio.png)
 
 Hinweis: Das System wurde noch nicht bereitgestellt und funktioniert entsprechend der in "local environment" dargestellten Lokalverteilung. Das Deployment kann lokal in Docker erfolgen.
 
-![img.png](img/Distribution_lokalv2.drawio.png)
+![img.png](EFTQuestManager-documentation/img/Distribution_lokalv2.drawio.png)
 
 
 ## Querschnittliche Konzepte
